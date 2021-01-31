@@ -1,0 +1,90 @@
+{% extends "concept/base.html" %}
+
+{% block title %}
+New Task
+{% endblock %}
+
+
+{% block content %}
+
+<div class="main">
+	<div>
+		<form method="POST" id="usrform" autocomplete="off">
+			{%csrf_token%}
+			<div>
+				<label class ='required'>Nome da tarefa:</label><input type="text" name="name_task" form="usrform">
+			</div>
+				<div>
+					<label class ='required'>Programa:</label>
+					<select name='program' id='program' form="usrform">
+
+						{% for name in program %}
+						<option value='{{name.id}}'>{{name}}</option>
+
+						{% endfor %}
+					</select>
+				</div>
+				<fieldset id="buildyourform">
+				    <legend>Destinado para:</legend>
+				</fieldset>
+				<input type="button" value="Adicionar" class="add" id="add" />
+
+			</div>
+			<div>
+				<textarea name='info' cols='40' rows="5" form="usrform">{{info}}</textarea> 
+			</div>
+			<div>
+				<input class='default' type="submit" value="Save" name="save">
+			</div>
+		</form>
+	</div>
+</div>
+
+	<script>
+	$(document).ready(function() {
+		var all_employ = '{{all_employ|safe}}';
+		all_employ = JSON.parse(all_employ)
+		console.log(all_employ[0].fields.name);
+		arr = [];
+		arr = all_employ.map((val)=>val.fields.name);
+		console.log(arr)
+		for(item in arr){
+			console.log(arr[item])
+		}
+
+
+
+	    $("#add").click(function() {
+	    	var lastField = $("#buildyourform div:last");
+	        var fieldWrapper = $("<div class=\"fieldwrapper\" id=\"field\"/>");
+	        var fType = $("<select id=\'select_employ\' name=\'select_employ\' form=\"usrform\" class=\"fieldtype\"></select>");
+	        var label = $('<label class=\'required\'>Empregado:</label>');
+	        
+	        for(num in arr){
+	        	var opt = $('<option form=\"usrform\" value=\''+arr[num]+'\'>'+arr[num]+'</option>');
+	        	fieldWrapper.append(label);
+	        	fType.append(opt);
+	        	console.log(fType);
+	        }
+
+
+
+	        var removeButton = $("<input id=\'removeId\'  type=\"button\" class=\"remove\" value=\"Remover\" />");
+	        removeButton.click(function(){
+	        	console.log('teste3',this);
+	        	$(this).parent('div').remove();
+	        })
+	        fieldWrapper.append(fType);
+	        fieldWrapper.append(removeButton);
+	        $("#buildyourform").append(fieldWrapper);
+	        console.log('Teste!');
+	    });
+
+	});
+	</script>
+
+
+
+
+
+{% endblock %}

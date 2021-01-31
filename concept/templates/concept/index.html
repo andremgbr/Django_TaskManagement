@@ -1,0 +1,101 @@
+{% extends 'concept/base.html' %}
+
+{% block content %}
+	<div class='main'>
+		<form method="post">
+		{% csrf_token %}
+		<div class="accordion" id="accordion">
+			<p><h1>Minhas Tarefas</h1></p>
+			{% for x in task %}
+				<div class="card">
+					<div class="card-header" id="heading{{x.id}}">
+						<h2 class="mb-0">
+					    	<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{x.id}}" aria-expanded="false" aria-controls="collapse{{x.id}}">
+
+					    		{% if x.situation == 'pg' %}
+					        	<span class="badge badge-warning">Em progresso</span>
+					        	{% endif %}
+
+					    		{% if x.situation == 'cl' %}
+					        	<span class="badge badge-danger">Cancelado</span>
+					        	{% endif %}
+
+					    		{% if x.situation == 'fl' %}
+					        	<span class="badge badge-success">Finalizado</span>
+					        	{% endif %}
+
+					        	{% if x.situation == 'al' %}
+					        	<span class="badge badge-info">Em análise</span>
+					        	{% endif %}
+
+					        	<strong>{{x.name}}</strong>&nbsp;&nbsp;&nbsp;<span class="text-secondary">Pedido por: {{x.requested_employ_id}}</span>
+					    		
+					    	
+
+					    	</button>
+					    </h2>
+					</div>
+					<div id="collapse{{x.id}}" class="collapse" aria-labelledby="heading{{x.id}}" data-parent="#accordion">
+						<div class="card-body">
+							<p>
+								<a class="btn btn-outline-primary btn-sm" href="/task/{{x.id}}/change/" tabindex="-1" role="button">Editar Tarefa</a>
+								&nbsp;&nbsp;&nbsp;
+								<button type="submit" class="btn btn-outline-danger btn-sm" name="remove-{{x.id}}" value="remove">Remover</button>
+								<button type="submit" class="btn btn-outline-secondary btn-sm" name="filed-{{x.id}}" value="filed}">Arquivar</button>
+							</p>
+
+					       <p>{{x.info}}</p>
+					    </div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<div class="accordion" id="accordion">
+			<p><h1>Meus Pedidos</h1></p>
+			{% for x in task_from_user %}
+				<div class="card">
+					<div class="card-header" id="heading{{x.id}}">
+						<h2 class="mb-0">
+					    	<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse{{x.id}}" aria-expanded="false" aria-controls="collapse{{x.id}}">
+					    		{% if x.situation == 'pg' %}
+					        	<span class="badge badge-warning">Em progresso</span>
+					        	{% endif %}
+
+					    		{% if x.situation == 'cl' %}
+					        	<span class="badge badge-danger">Cancelado</span>
+					        	{% endif %}
+
+					    		{% if x.situation == 'fl' %}
+					        	<span class="badge badge-success">Finalizado</span>
+					        	{% endif %}
+
+					        	{% if x.situation == 'al' %}
+					        	<span class="badge badge-info">Em análise</span>
+					        	{% endif %}
+
+					        	<strong>{{x.name}}</strong>&nbsp &nbsp &nbsp<span class="text-secondary">
+					    	</button>
+					    </h2>
+					</div>
+					<div id="collapse{{x.id}}" class="collapse" aria-labelledby="heading{{x.id}}" data-parent="#accordion">
+						<div class="card-body">
+							<p>
+								<a class="btn btn-outline-primary btn-sm" href="/task/{{x.id}}/change/" tabindex="-1" role="button">Editar Tarefa</a>
+								&nbsp;&nbsp;&nbsp;
+								<button type="submit" class="btn btn-outline-danger btn-sm" name="remove-{{x.id}}" value="remove">Remover</button>
+								<button type="submit" class="btn btn-outline-secondary btn-sm" name="filed-{{x.id}}" value="filed}">Arquivar</button>
+							</p>
+					      	<p>
+					      		{{x.info}}
+					     	</p>
+					    </div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</form>
+	</div>
+{%  endblock %}
+
+

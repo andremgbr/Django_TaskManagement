@@ -1,0 +1,72 @@
+{% extends "concept/base.html" %}
+
+{% block title %}
+Task Edit
+{% endblock %}
+
+
+{% block content %}
+
+<div class="main">
+	<div>
+		<div>
+			<label class ='required'>Name: {{task.name}}</label>
+		</div>
+		<div>
+			<label class ='required'>Programa: {{task.program}}</label>
+		</div>
+		<div>
+			<label class ='required'>Pedido por: {{task.requested_employ_id}}</label>
+		</div>
+	</div>
+	<div>
+		<form method="post" id='usrform'>
+			{% csrf_token %}
+		<label class = 'required'>Situação da tarefa: </label>
+		<select name='sit' id='sit' form="usrform">
+			<option value='fl'>Finalizado</option>
+			<option value='cl'>Cancelado</option>
+			<option value='pg'>Em progresso</option>
+			<option value='al'>Em análise</option>
+		</select>
+		<br>
+		<textarea name='info' cols='40' rows="5" form="usrform">{{task.info}}</textarea> 
+		<input class='default' type="submit" value="Save" name="save">
+		<p><br><input type="text" name="message" size="60">
+		<input type="submit" name="Chat">
+		<input type="submit" name="reset" value="Reset">
+		<div id="chatcontent">
+			
+		</div>
+	</div>
+
+	</form>
+
+</div>
+	<script type="text/javascript">
+		function updateMsg(){
+			console.log('Requesting JSON');
+			console.log('/messages/'+{{id}}+'/');
+			$.getJSON('/messages/'+{{id}}+'/',function(rowz){
+				json = JSON.parse(rowz);
+				$('#chatcontent').empty();
+				for (var i=0; i < json.length; i++){
+					$('#chatcontent').append('<p><strong>'+json[i][2]+'</strong> '+json[i][1]+'--->'+json[i][0]+'</p>');
+				}
+
+
+			});
+			setTimeout('updateMsg()',30000);
+		};
+	</script>
+
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$.ajaxSetup({ cache: false});
+			updateMsg();
+		});
+
+	</script>
+
+{% endblock %}

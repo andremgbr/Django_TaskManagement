@@ -1,0 +1,45 @@
+{% extends "concept/base.html" %}
+
+
+{% block title %}Programas{% endblock %}
+
+{% block content %}
+<div class='main'>
+	<h2>Funcionários/Tarefas</h2>
+
+	{% for item_employ in employ_all %}
+	<ul class='list-group'>
+		<li class='list-group-item'><h5>Empregado: {{item_employ}}</h5>
+			{% for item_dest in dest %}
+				<ul lass='list-group'>
+				{% if item_dest.destination_employ_id == item_employ %}
+						<li class='list-group-item'><strong><a href="/task/{{item_employ.id}}/change">
+
+								{% if item_dest.task_id.situation == 'pg' %}
+					        	<span class="badge badge-warning">Em progresso</span>
+					        	{% endif %}
+
+					    		{% if item_dest.task_id.situation == 'cl' %}
+					        	<span class="badge badge-danger">Cancelado</span>
+					        	{% endif %}
+
+					    		{% if item_dest.task_id.situation == 'fl' %}
+					        	<span class="badge badge-success">Finalizado</span>
+					        	{% endif %}
+
+					        	{% if item_dest.task_id.situation == 'al' %}
+					        	<span class="badge badge-info">Em análise</span>
+					        	{% endif %}
+							{{item_dest.task_id}}</strong> - Responsavel: {{item_dest.task_id.requested_employ_id}}</a>
+						</li>
+				{% endif %}
+				</ul>
+			{% endfor %}
+		</li></ul><br>
+	{% endfor %}
+
+
+
+
+</div>
+{% endblock %}

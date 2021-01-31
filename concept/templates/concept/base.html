@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="http://127.0.0.1:8000/static/concept/favicon.png">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+		<title>{% block title %}Home{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+		<style>
+			.collapsible {
+			  background-color: #777;
+			  color: white;
+			  cursor: pointer;
+			  padding: 18px;
+			  width: 100%;
+			  border: none;
+			  text-align: left;
+			  outline: none;
+			  font-size: 15px;
+			}
+
+			.active, .collapsible:hover {
+			  background-color: #555;
+			}
+
+			.content {
+			  padding: 0 18px;
+			  display: none;
+			  overflow: hidden;
+			  background-color: #f1f1f1;
+			}
+			.collapsible:after {
+			  content: '\02795'; /* Unicode character for "plus" sign (+) */
+			  font-size: 13px;
+			  color: white;
+			  float: right;
+			  margin-left: 5px;
+			}
+
+			.active:after {
+			  content: "\2796"; /* Unicode character for "minus" sign (-) */
+			}
+	
+	
+			.sidenav {
+				height:100%;
+				width:160px;
+				position: fixed;
+				z-index:1;
+				top:0;
+				left:0;
+				background-color:#111;
+				overflow-x: :hidden;
+				padding-top:20px;
+			}
+
+			.side a {
+				padding:6px 8px 6px 16px;
+				text-decoration: none;
+				font-size:25px;
+				color: #818181;
+				display:block;
+			}		
+
+			.side a:hover{
+				color:#f1f1f1;
+				
+			}
+	 
+			.sideuser a {
+				padding:6px 8px 6px 16px;
+				text-decoration: none;
+				font-size:25px;
+				color: #818181;
+				display:block;
+				z-index:2;
+				padding-bottom:70px;
+			}
+	 
+			.sideuser a:hover{
+				color:#f1f1f1;
+			}	
+
+
+
+
+			.main{
+				margin-left:190px;
+				padding: 30px 10px;
+			}
+	 
+	
+	
+			.label {
+			  color: white;
+			  padding: 8px;
+			  font-family: Arial;
+			}
+			.success {background-color: #4CAF50;} /* Green */
+			.info {background-color: #2196F3;} /* Blue */
+			.warning {background-color: #ff9800;} /* Orange */
+			.danger {background-color: #f44336;} /* Red */ 
+			.other {background-color: #e7e7e7; color: black;} /* Gray */ 
+
+
+
+			.container{
+			    display: flex;
+			}
+			.fixed{
+			    width: 5px;
+			}
+			.flex-item{
+			    flex-grow: 1;
+			}
+
+			.required label, label.required {
+   				 font-weight: bold;
+    			color: #333;
+					}
+
+						label {
+			    font-size: 14px;
+			}
+
+					.aligned label {
+			    width: 100%;
+			    padding: 0 0 10px;
+			}
+
+
+				ul {
+				  padding: 0;
+				  margin: 0;
+				}
+
+				ul li {
+				  list-style: none;
+				}</style>
+	</head>
+
+<body>
+
+	<div class="sidenav">
+		{% if request.user.is_anonymous %}
+			<div class="sideuser">
+				<a href="/login">Log In</a>
+			</div>
+			{% else %}
+			<div class="side">
+				<a href='' ><h2>{{employ.name}}</h2></a>
+			</div>
+			<div class="sideuser">
+				<a href="/logout"><h6>Sair da conta</h6></a>
+			</div>
+			{% endif %}
+		<div class="side">
+			<a href="/">My Task</a>
+			<a href="/newtask/">Nova tarefa</a>
+			<a href="/filed/">Arquivo</a>
+			<a href="/programs/">Programas</a>
+			<a href="/employees">Empregados</a>
+
+		</div>
+
+	</div>
+	{% block content %}{% endblock %}
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

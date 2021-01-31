@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Criar Conta</title>
+</head>
+<body>
+	<form method='POST' class='form-group'>
+		{% csrf_token %}
+		{{Rform}}
+		{{Eform}}
+		<button type="submit", class="btn btn-success">Reggister</button>
+	</form>
+</body>
+</html>
+
